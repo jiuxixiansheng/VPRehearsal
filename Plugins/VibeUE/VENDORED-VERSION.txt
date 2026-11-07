@@ -1,0 +1,16 @@
+VibeUE bundled with VPRehearsal
+
+Upstream: https://github.com/kevinpbuckley/VibeUE.git
+Source commit: 88289063fe79df010b1969ef738dcd46f4522941
+Plugin version: 5.0
+Bundled on: 2026-11-07
+
+Runtime binary target: Windows x64, Unreal Editor 5.8.3
+Engine changelist: 58210709
+Engine/plugin BuildId: 55116800
+
+This is a regular project plugin directory, not a Git submodule.
+Source, content, resources, license, DLL and UnrealEditor.modules are bundled.
+Caches, Intermediate output and debug symbols are intentionally not versioned.
+Keep source and compiled DLL in sync when updating this plugin.
+Other platforms or incompatible engine builds require a matching plugin build.
