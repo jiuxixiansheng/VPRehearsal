@@ -154,6 +154,18 @@
 		{
 			"Name": "VibeUE",
 			"Enabled": true
+		},
+		{
+			"Name": "OpenXREyeTracker",
+			"Enabled": true
+		},
+		{
+			"Name": "OpenXRHandTracking",
+			"Enabled": true
+		},
+		{
+			"Name": "PICOController",
+			"Enabled": true
 		}
 	]
 }
