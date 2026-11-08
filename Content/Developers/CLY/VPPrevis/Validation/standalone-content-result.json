@@ -1,0 +1,21 @@
+{
+  "success": true,
+  "world": "/Game/Developers/CLY/Levels/VP_TestContent.VP_TestContent",
+  "loaded_levels": [
+    "/Game/Developers/CLY/Levels/VP_TestContent.VP_TestContent"
+  ],
+  "environment_actors": [
+    "DirectionalLight",
+    "SkyAtmosphere",
+    "SkyLight",
+    "ExponentialHeightFog",
+    "VolumetricCloud",
+    "SM_SkySphere"
+  ],
+  "sun_intensity": 6.0,
+  "sky_intensity": 1.0,
+  "sun_channel": 1,
+  "editor_camera": "VP_Content_EditView",
+  "actor_count": 15,
+  "studio_actors_loaded": false
+}
