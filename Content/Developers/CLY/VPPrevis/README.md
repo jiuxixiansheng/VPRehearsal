@@ -21,7 +21,7 @@
 
 ## 画面如何送到环屏
 
-1. 内容区域沿世界 X 轴平移了 100000 cm（1 km），与摄影棚分开。内容原点 `VP_ContentRenderOrigin` 复制了舞台的屏幕投影配置，自己的屏幕预览关闭。
+1. 内容区域通过空 Actor `VP_ContentRoot` 统一沿世界 X 轴平移 100000 cm（1 km），与摄影棚分开。内容关卡的 15 个对象均附加到该根节点，子对象使用不含 1 km 偏移的相对坐标，原有世界位置保持不变。内容原点 `VP_ContentRenderOrigin` 复制了舞台的屏幕投影配置，自己的屏幕预览关闭。
 2. 摄影棚环屏上的 `DisplayClusterPreviewShare` 组件使用 `Pull Actor`，来源指定为 `VP_ContentRenderOrigin`。环屏预览据此使用内容区域的渲染原点和配置生成画面。
 3. 同一组件的 ICVFX 摄影机同步使用 `Push Actor`：将摄影棚 `CAM1` 实际引用的 `CineCameraActor` 的相对位置、旋转、Filmback 和焦距同步到内容区域的 `CAM1`。同步按两套原点的相对变换计算。
 4. 近、中、远的内容方块分别为红、绿、蓝。它们和内容地面设置了 15000 cm（150 m）的距离剔除：棚内观察时看不到远处实体，内容摄影机在附近渲染时能看到它们。后续新增内容也要检查距离剔除或遮挡，不能只依靠放进子关卡实现可见性隔离。
@@ -38,7 +38,7 @@
 1. 打开 `VP_Main`。在 Outliner 搜索并选中 `CineCameraActor`，修改它的 Transform、焦距等；不要直接操控后台内容原点或后台 `CAM1`。
 2. 编辑摄影棚实景时，把 `VP_Main` 设为当前关卡。新增实景物体后，将其加入两套 nDisplay 配置的整簇隐藏列表，避免被渲染到屏幕。
 3. 可以直接打开 `VP_TestContent` 编辑虚拟场景：在 Outliner 选择 `VP_Content_EditView`，按 F 定位，或右键 Pilot 进入它的视角。它仅供编辑，不会驱动棚内摄影机。也可以在主地图把 `VP_TestContent` 设为当前关卡，选择一个 `VPTest_` 方块按 F 到达内容区域。
-4. 在内容原点附近布置新内容。新增内容网格的 Lighting Channels 使用 Channel 1，Max Draw Distance 建议先沿用 15000 cm，并确认不是 Never Distance Cull。内容仍位于 X 约 100000 cm 的区域，当前还没有改成子关卡整体变换。
+4. 在内容原点附近布置新内容，并将新增对象保存在 `VP_TestContent`、附加到 `VP_ContentRoot` 下，以相对坐标布置。新增内容网格的 Lighting Channels 使用 Channel 1，Max Draw Distance 建议先沿用 15000 cm，并确认不是 Never Distance Cull。整体平移只需修改根节点 Location；当前根组件为 Static，用于编辑器调整，保持旋转为 0、缩放为 1。若单独编辑时临时将根节点 X 改为 0，返回主地图预演前恢复为 100000 cm。这是 Actor 层级方案，不是子关卡整体变换。
 5. `G` 切换编辑器游戏视图。它会隐藏编辑器图标和 UE 自带的摄影机代理模型；新增的可渲染机身不依赖这些图标。
 
 概念上，LED 屏输出只包含后台虚拟内容；棚内摄影机看到的构图则可以同时包含黄色实景前景和 LED 屏上的虚拟内容。

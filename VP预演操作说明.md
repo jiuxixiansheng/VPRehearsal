@@ -16,7 +16,9 @@
 
 以上地图均在 `/Game/Developers/CLY/Levels/` 中。新增 UE 资产统一放在 `/Game/Developers/CLY/` 下；本文按要求放在项目根目录，便于查阅。
 
-**当前的空间隔离仍然保留**：内容区域沿世界 X 轴偏移约 100000 cm（1 km），偏移已经写在内容 Actor 的位置里。尚未改成空 Actor 根节点控制，也没有改成子关卡整体变换。
+**当前的空间隔离仍然保留**：`VP_TestContent` 中的 15 个内容对象已统一挂在空 Actor `VP_ContentRoot` 下。根节点 Location 为 `(100000, 0, 0)` cm，统一承担 1 km 偏移；子对象使用相对坐标，例如近景左方块 X 为 `1200`，内容渲染原点 X 为 `-290`。世界位置保持不变。这里使用 Actor 父子层级，不是子关卡整体变换。
+
+在 Outliner 选择 `VP_ContentRoot`，修改它的 Location 即可统一移动内容、照明和渲染原点。当前根组件为 Static，适合编辑器内调整；运行时动态移动不在此次实现范围内。建议只调整平移，保持旋转为 0、缩放为 1。
 
 `VP_TestContent` 仍会出现在主地图的 Levels 列表中。这套方案没有创建第二个独立 World，也没有编写新的原生插件。完全分离 World 的改造已按要求搁置。
 
@@ -57,7 +59,7 @@
 
 1. 打开 `/Game/Developers/CLY/Levels/VP_TestContent`。
 2. 在 Outliner 中选择 `VP_Content_EditView`，按 `F` 定位，或右键 Pilot 进入编辑视角。
-3. 在现有测试方块和内容原点附近搭景。当前内容仍位于 X 约 100000 cm 的区域，不能按已经回到世界原点的方式布置。
+3. 在现有测试方块和内容原点附近搭景。新对象要保存在 `VP_TestContent` 中，并在 Outliner 中挂到 `VP_ContentRoot` 下，再按相对坐标布置；新建对象不会自动成为根节点的子对象。世界空间中的内容仍在约 1 km 外，子对象的相对坐标已经不含这段偏移。
 4. 新增内容网格使用 `Lighting Channel 1`，关闭默认的 Channel 0，以沿用现有内容直接光照分组。
 5. 参考现有测试网格设置 `Desired Max Draw Distance = 15000 cm`，并关闭 `Never Distance Cull`；保存后返回 `VP_Main` 检查屏幕与摄影棚视角。
 
@@ -96,6 +98,7 @@ Lighting Channels 用于区分受支持的直接光照，并不隔离全部天�
 - 操作摄影机后，保存它所在的 `VP_Ndisplay`。
 - 修改棚体、棚灯或实景后，保存 `VP_Main`。
 - 修改虚拟内容、环境灯或后台原点后，保存 `VP_TestContent`。
+- 修改 `VP_ContentRoot` 后，也保存 `VP_TestContent`。如果单独编辑时临时把根节点 X 改为 0，返回主地图预演前应恢复为 100000 cm，避免内容与摄影棚重叠。
 - 修改跨关卡引用或 nDisplay 隐藏列表后，保存涉及的关卡。
 - 不要把后台原点移回摄影棚附近，也不要直接删除内容子关卡引用，否则会破坏当前空间隔离或画面来源。
 
