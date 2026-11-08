@@ -1,0 +1,37 @@
+{
+  "target_level": "/Game/Maps/YuYan_Total.YuYan_Total",
+  "asset_root": "/Game/Developers/SZA/VPStage",
+  "reference_image": "SourceArt/VPStage/FloorPlan_Reference.jpg",
+  "reference_image_size_px": [923, 1109],
+  "calibration": {
+    "back_wall_y_px": 204,
+    "front_wall_y_px": 977,
+    "body_left_x_px": 68,
+    "body_right_x_px": 820,
+    "center_x_px": 444,
+    "depth_segments_mm": [19495, 10600],
+    "longitudinal_depth_mm": 30095,
+    "horizontal_scale": "same_as_vertical_to_preserve_reference_aspect_ratio",
+    "dimensioned_side_clearance_mm": 3368,
+    "dimensioned_table_size_mm": [3000, 800],
+    "drawing_datum_label_m": 14.100,
+    "model_floor_z_cm": 0,
+    "world_axes": "+X drawing-right; +Y drawing-down/towards entrance; +Z up"
+  },
+  "approved_assumptions": {
+    "clear_height_cm": 600,
+    "width": "Derived from image proportions; no overall width dimension supplied",
+    "elevation_details": "Door heights, wall finishes, fixtures and furniture heights are previs assumptions",
+    "door_clear_height_cm": 240,
+    "table_height_cm": 75,
+    "roof": "Open roof for overhead inspection; roof edges indicate the 6 m datum"
+  },
+  "excluded": ["curved LED screen", "curved screen truss and support structure"],
+  "room_labels": {
+    "power": "配电间",
+    "soundlock_a": "声闸",
+    "store": "家具库",
+    "soundlock_b": "声闸",
+    "entry": "入口及楼梯区"
+  }
+}
