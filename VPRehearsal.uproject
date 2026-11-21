@@ -171,6 +171,10 @@
 			"Enabled": true
 		},
 		{
+			"Name": "CineCameraSceneCapture",
+			"Enabled": true
+		},
+		{
 			"Name": "DisplayClusterLaunch",
 			"Enabled": true,
 			"SupportedTargetPlatforms": [
